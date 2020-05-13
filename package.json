@@ -1,0 +1,7 @@
+{
+  "name": "vanila-blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sky7th/vanila-blog",
+  "license": "MIT"
+}
