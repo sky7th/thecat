@@ -33,9 +33,13 @@ const api = {
             };
         }
     },
-    getCatsByBreed: async breedId => {
+    getCatsByBreed: async (breedId, page) => {
         try {
-            const result = await request(`${API_ENDPOINT}/images/search?limit=20&breed_id=${breedId}`);
+            let url = `${API_ENDPOINT}/images/search?limit=5&breed_id=${breedId}`
+            if (page) {
+                result += `&page=${page}`;
+            }
+            const result = await request(url);
             
             return {
                 isError: false,

@@ -4,7 +4,6 @@ import { debouncing } from '../util/debouncing.js';
 export default class SearchingSection {
     constructor({ $target, searchCatsByBreed }) {
         this.searchCatsByBreed = searchCatsByBreed;
-        this.page = 0;
         this.$section = document.createElement('section');
         this.$section.className = 'searching-section';
 
@@ -34,7 +33,6 @@ export default class SearchingSection {
             new SearchingBreed({
                 $target: $breedContainer,
                 searchCatsByBreed: this.searchCatsByBreed,
-                page: this.page,
                 data: $searchBox.value
             });
         }, 500));

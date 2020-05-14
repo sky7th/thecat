@@ -9,7 +9,9 @@ export default class App {
             $target,
             searchCatsByBreed: async breedId => {
                 const response = await api.getCatsByBreed(breedId);
-                if(!response.isError){
+                if (!response.isError){
+                    postSection.setBreedId(breedId);
+                    postSection.resetPage();
                     postSection.setState(response.data);
                 } else {
                     /* TODO: 에러 페이지 */
@@ -17,7 +19,16 @@ export default class App {
             }
         });
 
-        const postSection = new PostSection({ $target });
+        const postSection = new PostSection({ 
+            $target,
+            searchCatsMoreScroll: async (breedId, page) => {
+                const response = await api.getCatsByBreed(breedId, page);
+                if (!response.isError){
+                    postSection.plusPage();
+                    postSection.setState([...postSection.getData(), ...response.data]);
+                }
+            }
+        });
     }
 
 
