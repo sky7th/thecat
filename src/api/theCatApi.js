@@ -35,7 +35,7 @@ const api = {
     },
     getCatsByBreed: async (breedId, page) => {
         try {
-            let url = `${API_ENDPOINT}/images/search?limit=5&breed_id=${breedId}&page=${page}`
+            let url = `${API_ENDPOINT}/images/search?limit=20&breed_id=${breedId}&page=${page}`
             const result = await request(url);
 
             return {

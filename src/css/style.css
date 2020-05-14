@@ -1,5 +1,5 @@
 .cat-card {
-    width: 200px;
+    width: 300px;
 }
 
 .card-image {
@@ -8,4 +8,10 @@
 
 .hidden {
     visibility: hidden;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }

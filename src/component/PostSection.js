@@ -1,5 +1,6 @@
 import Card from "./Card.js";
 import { scrollFetch } from '../util/scrollFetch.js';
+import { lazyLoad } from '../util/lazyLoad.js';
 
 export default class PostSection {
     constructor({ $target, searchCatsMoreScroll }) {
@@ -14,12 +15,14 @@ export default class PostSection {
         $target.appendChild(this.section);
 
         this.render();
+        lazyLoad();
         scrollFetch(this.searchCatsMoreScroll, this.state);
     }
 
     setState(data) {
         this.state.data = data;
         this.render();
+        lazyLoad();
     }
 
     getData() {
@@ -43,7 +46,7 @@ export default class PostSection {
 
         this.section.innerHTML = '';
         
-        const cardContainer = document.createElement('ul');
+        const cardContainer = document.createElement('div');
         cardContainer.className = 'card-container';
 
         this.appendCardToCardContainer(this.state.data, cardContainer);
@@ -59,5 +62,6 @@ export default class PostSection {
                 data: item
             });
         });
+        lazyLoad();
     }
 }

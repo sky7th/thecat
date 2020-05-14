@@ -14,7 +14,7 @@ export default class Card {
         const cardImage = document.createElement('img');
         cardImage.className = 'card-image';
         cardImage.classList.add('lazy');
-        cardImage.src = this.data.url;
+        cardImage.dataset.src = this.data.url;
 
         const cardInfo = document.createElement('div');
         cardInfo.className = 'card-info';
