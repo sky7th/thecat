@@ -3,14 +3,16 @@ import { scrollFetch } from '../util/scrollFetch.js';
 import { lazyLoad } from '../util/lazyLoad.js';
 
 export default class PostSection {
-    constructor({ $target, searchCatsMoreScroll }) {
+    constructor({ $target, searchCatsMoreScroll, showModal }) {
         this.searchCatsMoreScroll = searchCatsMoreScroll;
+        this.showModal = showModal;
         this.state = {
             data: [],
             page: 1,
             breedId: ''
         }
         this.section = document.createElement('section');
+        this.section.className = 'post-section';
 
         $target.appendChild(this.section);
 
@@ -51,6 +53,18 @@ export default class PostSection {
 
         this.appendCardToCardContainer(this.state.data, cardContainer);
 
+        cardContainer.addEventListener('click', e => {
+            const path = e.path;
+            const card = path.find(comp => comp.className == 'cat-card');
+            
+            if(card){
+                const id = card.dataset.id;
+                const catInfo = this.findCatById(id);
+                
+                this.showModal(catInfo);
+            }
+        });
+
         this.section.appendChild(cardContainer);
     }
 
@@ -63,5 +77,10 @@ export default class PostSection {
             });
         });
         lazyLoad();
+    }
+
+    findCatById(id) {
+        const result = this.state.data.find(cat => cat.id == id);
+        return result;
     }
 }

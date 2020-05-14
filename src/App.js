@@ -1,5 +1,6 @@
 import SearchingSection from './component/SearchingSection.js';
 import PostSection from './component/PostSection.js';
+import DetailModal from './component/DetailModal.js';
 
 import { api } from './api/theCatAPI.js';
 
@@ -27,7 +28,14 @@ export default class App {
                     postSection.appendCardToCardContainer(response.data);
                     postSection.plusPage();
                 }
+            },
+            showModal: data => {
+                detailModal.setState(data);
             }
+        });
+
+        const detailModal = new DetailModal({
+            $target
         });
     }
 
