@@ -1,9 +1,11 @@
 import { api } from '../api/theCatAPI.js';
 
 export default class SearchingBreed {
-    constructor({ $target, data }) {
-        this.searchedBreeds = [];
+    constructor({ $target, searchCatsByBreed, data }) {
+        this.$target = $target;
+        this.searchCatsByBreed = searchCatsByBreed;
         this.data = data;
+        this.searchedBreeds = [];
         this.container = document.createElement('ul');
         this.container.className = 'search-breed-container';
 
@@ -17,6 +19,18 @@ export default class SearchingBreed {
             this.container.classList.add('hidden');
             return;
         }
+
+        this.container.addEventListener('click', event => {
+            const path = event.path;
+            const row = path.find(elem => elem.className === 'search-breed-item');
+
+            if (row) {
+                const breedId = row.dataset.id;
+                this.searchCatsByBreed(breedId);
+                this.$target.classList.add('hidden');
+            }
+        })
+
         this.searchCatBreedsByName(this.data);
     }
 
@@ -25,7 +39,6 @@ export default class SearchingBreed {
             return;
         }
         const response = await api.getCatBreedsByName(keyword);
-        console.log(response);
         
         if(response.isError || response.data.length === 0){
             return;

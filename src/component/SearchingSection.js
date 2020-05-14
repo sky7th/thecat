@@ -36,20 +36,22 @@ export default class SearchingSection {
             }
             new SearchingBreed({
                 $target: breedContainer,
+                searchCatsByBreed: this.searchCatsByBreed,
                 data: searchBox.value
             });
         }, 500));
-        searchBtn.addEventListener('click', () => this.searchByKeyword(searchBox.value));
+        let isEnterCusor = true;
+        searchBox.addEventListener('blur', () => {
+            if (!isEnterCusor) 
+                breedContainer.classList.add('hidden');
+        });
+        searchBox.addEventListener('focus', () => breedContainer.classList.remove('hidden'));
+        breedContainer.addEventListener('mouseenter', () => isEnterCusor = true);
+        breedContainer.addEventListener('mouseleave', () => isEnterCusor = false);
 
         wrapper.appendChild(searchBox);
         wrapper.appendChild(searchBtn);
         this.section.appendChild(wrapper);
         this.section.appendChild(breedContainer);
-    }
-
-    searchByKeyword(breedId) {
-        if(breedId.length == 0) return;
-        
-        this.searchCatsByBreed(breedId);
     }
 }
