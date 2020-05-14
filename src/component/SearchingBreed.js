@@ -1,11 +1,12 @@
 import { api } from '../api/theCatAPI.js';
 
 export default class SearchingBreed {
-    constructor({ $target, searchCatsByBreed, data }) {
+    constructor({ $target, searchCatsByBreed, data, searchingRecentBreed }) {
         this.$target = $target;
         this.searchCatsByBreed = searchCatsByBreed;
         this.data = data;
         this.searchedBreeds = [];
+        this.searchingRecentBreed = searchingRecentBreed;
         this.$container = document.createElement('ul');
         this.$container.className = 'search-breed-container';
 
@@ -26,7 +27,9 @@ export default class SearchingBreed {
 
             if ($row) {
                 const breedId = $row.dataset.id;
+                const breadName = $row.innerText;
                 this.searchCatsByBreed(breedId, 0);
+                this.searchingRecentBreed.appendBreed({ id: breedId, name: breadName });
                 this.$target.classList.add('hidden');
             }
         })

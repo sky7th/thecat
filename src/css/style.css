@@ -102,6 +102,7 @@ body {
     position: absolute;
     position: absolute;
     left: 50%;
+    top: 62px;
     transform: translateX(-50%);
     position: absolute;
     list-style: none;
@@ -127,4 +128,31 @@ body {
 
 .post-section {
     margin-top: 40px;
+}
+
+.search-recent-breed {
+    text-align: center;
+}
+
+.search-recent-breed-container {
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.search-recent-breed-item {
+    list-style: none;
+    padding: 3px 14px;
+    border-radius: 5px;
+    background-color: deepskyblue;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 8px;
+    margin-bottom: 6px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.search-recent-breed-item:hover {
+    background-color: dodgerblue;
 }

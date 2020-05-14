@@ -1,4 +1,5 @@
 import SearchingBreed from './SearchingBreed.js';
+import SearchingRecentBreed from './SearchingRecentBreed.js';
 import { debouncing } from '../util/debouncing.js';
 
 export default class SearchingSection {
@@ -25,6 +26,13 @@ export default class SearchingSection {
         const $breedContainer = document.createElement('div');
         $breedContainer.className = 'search-breed';
 
+        const $recentSearchBreedContainer = document.createElement('div');
+        $recentSearchBreedContainer.className = 'search-recent-breed';
+
+        const searchingRecentBreed = new SearchingRecentBreed({
+            $target: $recentSearchBreedContainer
+        });
+
         $searchBox.addEventListener('keyup', debouncing().debounce(() => {
             $breedContainer.innerHTML = '';
             if (!$searchBox.value) {
@@ -33,7 +41,8 @@ export default class SearchingSection {
             new SearchingBreed({
                 $target: $breedContainer,
                 searchCatsByBreed: this.searchCatsByBreed,
-                data: $searchBox.value
+                data: $searchBox.value,
+                searchingRecentBreed: searchingRecentBreed
             });
         }, 500));
         let isEnterCusor = true;
@@ -48,6 +57,7 @@ export default class SearchingSection {
 
         $wrapper.appendChild($searchBox);
         this.$section.appendChild($wrapper);
+        this.$section.appendChild($recentSearchBreedContainer);
         this.$section.appendChild($breedContainer);
     }
 }

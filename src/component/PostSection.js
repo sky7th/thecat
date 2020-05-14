@@ -3,11 +3,11 @@ import { scrollFetch } from '../util/scrollFetch.js';
 import { lazyLoad } from '../util/lazyLoad.js';
 
 export default class PostSection {
-    constructor({ $target, searchCatsMoreScroll, showModal }) {
+    constructor({ $target, recentPosts, searchCatsMoreScroll, showModal }) {
         this.searchCatsMoreScroll = searchCatsMoreScroll;
         this.showModal = showModal;
         this.state = {
-            data: [],
+            data: recentPosts,
             page: 1,
             breedId: ''
         }
@@ -29,6 +29,10 @@ export default class PostSection {
 
     getData() {
         return this.state.data;
+    }
+
+    setData(data) {
+        this.state.data = data;
     }
 
     plusPage() {
