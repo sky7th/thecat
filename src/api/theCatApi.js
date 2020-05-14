@@ -18,10 +18,24 @@ const request = async url => {
 }
 
 const api = {
+    getCatBreedsByName: async keyword => {
+        try {
+            const result = await request(`${API_ENDPOINT}/breeds/search?q=${keyword}`);
+            
+            return {
+                isError: false,
+                data: result
+            };
+        } catch(e) {
+            return {
+                isError: true,
+                data: e
+            };
+        }
+    },
     getCatsByBreed: async breedId => {
         try {
             const result = await request(`${API_ENDPOINT}/images/search?limit=20&breed_id=${breedId}`);
-            console.log(`${API_ENDPOINT}/images/search?limit=20&breed_id=${breedId}`, result);
             
             return {
                 isError: false,

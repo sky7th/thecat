@@ -5,3 +5,7 @@
 .card-image {
     width: 100%;
 }
+
+.hidden {
+    visibility: hidden;
+}

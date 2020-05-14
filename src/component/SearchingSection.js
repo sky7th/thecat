@@ -1,3 +1,6 @@
+import SearchingBreed from './SearchingBreed.js';
+import { debouncing } from '../util/debouncing.js';
+
 export default class SearchingSection {
     constructor({ $target, searchCatsByBreed }) {
         this.searchCatsByBreed = searchCatsByBreed;
@@ -23,16 +26,25 @@ export default class SearchingSection {
         searchBtn.className = 'search-btn';
         searchBtn.innerText = '검색';
 
-        searchBox.addEventListener('keyup', event => {
-            if(event.keyCode == 13){
-                this.searchByKeyword(searchBox.value);
+        const breedContainer = document.createElement('div');
+        breedContainer.className = 'search-breed';
+
+        searchBox.addEventListener('keyup', debouncing().debounce(() => {
+            breedContainer.innerHTML = '';
+            if (!searchBox.value) {
+                return;
             }
-        });
+            new SearchingBreed({
+                $target: breedContainer,
+                data: searchBox.value
+            });
+        }, 500));
         searchBtn.addEventListener('click', () => this.searchByKeyword(searchBox.value));
 
         wrapper.appendChild(searchBox);
         wrapper.appendChild(searchBtn);
         this.section.appendChild(wrapper);
+        this.section.appendChild(breedContainer);
     }
 
     searchByKeyword(breedId) {
