@@ -26,7 +26,7 @@ export default class SearchingBreed {
 
             if ($row) {
                 const breedId = $row.dataset.id;
-                this.searchCatsByBreed(breedId);
+                this.searchCatsByBreed(breedId, 0);
                 this.$target.classList.add('hidden');
             }
         })

@@ -13,6 +13,7 @@ export default class Card {
     render() {
         const cardImage = document.createElement('img');
         cardImage.className = 'card-image';
+        cardImage.classList.add('lazy');
         cardImage.src = this.data.url;
 
         const cardInfo = document.createElement('div');

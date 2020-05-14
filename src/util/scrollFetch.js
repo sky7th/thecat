@@ -2,11 +2,11 @@ import { throttling } from './throttling.js';
 
 const throttler = throttling();
 
-function scrollFetch(fetchData, breedId, page) {
+function scrollFetch(fetchData, state) {
     window.addEventListener('scroll', () => {
         throttler.throttle(() => {
             if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
-            fetchData(breedId, page);
+            fetchData(state.breedId, state.page);
         }, 700);
     });
 }

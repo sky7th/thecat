@@ -4,53 +4,60 @@ import { scrollFetch } from '../util/scrollFetch.js';
 export default class PostSection {
     constructor({ $target, searchCatsMoreScroll }) {
         this.searchCatsMoreScroll = searchCatsMoreScroll;
-        this.data = [];
-        this.page = 0;
-        this.breedId = '';
+        this.state = {
+            data: [],
+            page: 1,
+            breedId: ''
+        }
         this.section = document.createElement('section');
 
         $target.appendChild(this.section);
 
         this.render();
-        scrollFetch(this.searchCatsMoreScroll, this.breedId, this.page);
+        scrollFetch(this.searchCatsMoreScroll, this.state);
     }
 
     setState(data) {
-        this.data = data;
+        this.state.data = data;
         this.render();
     }
 
     getData() {
-        return this.data;
+        return this.state.data;
     }
 
     plusPage() {
-        this.page += 1;
+        this.state.page += 1;
     }
 
     resetPage() {
-        this.page = 0;
+        this.state.page = 1;
     }
 
     setBreedId(breedId) {
-        this.breedId = breedId;
+        this.state.breedId = breedId;
     }
 
     render() {
-        if(!this.data) return;
+        if(!this.state.data) return;
 
         this.section.innerHTML = '';
         
         const cardContainer = document.createElement('ul');
         cardContainer.className = 'card-container';
 
-        this.data.map(item => {
+        this.appendCardToCardContainer(this.state.data, cardContainer);
+
+        this.section.appendChild(cardContainer);
+    }
+
+    appendCardToCardContainer(items, container) {
+        const cardContainer = container || document.querySelector('.card-container');
+        items.map(item => {
             new Card({
                 $target: cardContainer,
                 data: item
             });
         });
-
-        this.section.appendChild(cardContainer);
     }
 }

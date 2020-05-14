@@ -7,8 +7,8 @@ export default class App {
     constructor($target) {
         const searchingSection = new SearchingSection({
             $target,
-            searchCatsByBreed: async breedId => {
-                const response = await api.getCatsByBreed(breedId);
+            searchCatsByBreed: async (breedId, page) => {
+                const response = await api.getCatsByBreed(breedId, page);
                 if (!response.isError){
                     postSection.setBreedId(breedId);
                     postSection.resetPage();
@@ -24,8 +24,8 @@ export default class App {
             searchCatsMoreScroll: async (breedId, page) => {
                 const response = await api.getCatsByBreed(breedId, page);
                 if (!response.isError){
+                    postSection.appendCardToCardContainer(response.data);
                     postSection.plusPage();
-                    postSection.setState([...postSection.getData(), ...response.data]);
                 }
             }
         });
