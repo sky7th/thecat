@@ -1,32 +1,34 @@
 import { api } from '../api/theCatAPI.js';
 
 export default class SearchingBreed {
-    constructor({ $target, searchCatsByBreed, data }) {
+    constructor({ $target, searchCatsByBreed, page, data }) {
         this.$target = $target;
         this.searchCatsByBreed = searchCatsByBreed;
+        this.page = page;
         this.data = data;
         this.searchedBreeds = [];
-        this.container = document.createElement('ul');
-        this.container.className = 'search-breed-container';
+        this.$container = document.createElement('ul');
+        this.$container.className = 'search-breed-container';
 
-        $target.appendChild(this.container);
+        $target.appendChild(this.$container);
 
         this.render();
     }
 
     render() {
         if (!this.searchedBreeds) {
-            this.container.classList.add('hidden');
+            this.$container.classList.add('hidden');
             return;
         }
 
-        this.container.addEventListener('click', event => {
+        this.$container.addEventListener('click', event => {
             const path = event.path;
-            const row = path.find(elem => elem.className === 'search-breed-item');
+            const $row = path.find(elem => elem.className === 'search-breed-item');
 
-            if (row) {
-                const breedId = row.dataset.id;
+            if ($row) {
+                const breedId = $row.dataset.id;
                 this.searchCatsByBreed(breedId);
+                this.page = 0;
                 this.$target.classList.add('hidden');
             }
         })
@@ -47,11 +49,11 @@ export default class SearchingBreed {
 
         for (let i = 0; i < 5; i++) {
             const breed = breeds[i];
-            const row = document.createElement('li');
-            row.className = 'search-breed-item';
-            row.dataset.id = breed['id'];
-            row.innerText = breed['name'];
-            this.container.appendChild(row);
+            const $row = document.createElement('li');
+            $row.className = 'search-breed-item';
+            $row.dataset.id = breed['id'];
+            $row.innerText = breed['name'];
+            this.$container.appendChild($row);
         }
     }
 }
