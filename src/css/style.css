@@ -189,3 +189,7 @@ body {
     border: none;
     padding: 0 13px;
 }
+
+.empty-notice {
+    text-align: center;
+}

@@ -31,6 +31,14 @@ export default class PostSection {
 
     render() {
         if(!this.state.posts) return;
+        
+        if (this.state.posts.length === 0) {
+            const $emptyNotice = document.createElement('div');
+            $emptyNotice.className = 'empty-notice';
+            $emptyNotice.innerText = '검색 결과가 없습니다.'
+            this.section.appendChild($emptyNotice);
+            return;
+        }
 
         this.section.innerHTML = '';
         
