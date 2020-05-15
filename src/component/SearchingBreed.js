@@ -1,4 +1,5 @@
 import { api } from '../api/theCatAPI.js';
+import Loading from './Loading.js';
 
 export default class SearchingBreed {
     constructor({ $target, data, searchCatsByBreed, appendRecentBreed }) {
@@ -12,6 +13,12 @@ export default class SearchingBreed {
         this.$container = document.createElement('ul');
         this.$container.className = 'search-breed-container';
 
+        const loading = new Loading({
+            $target,
+            className: 'search-spinner'
+        });
+        this.loading = loading;
+        
         $target.appendChild(this.$container);
 
         this.render();
@@ -43,6 +50,7 @@ export default class SearchingBreed {
         if (!keyword) {
             return;
         }
+        this.loading.toggleSpinner();
         const response = await api.getCatBreedsByName(keyword);
         
         if(response.isError || response.data.length === 0){
@@ -58,5 +66,6 @@ export default class SearchingBreed {
             $row.innerText = breed['name'];
             this.$container.appendChild($row);
         }
+        this.loading.toggleSpinner();
     }
 }

@@ -3,6 +3,7 @@ import { scrollFetch } from '../util/scrollFetch.js';
 import { lazyLoad } from '../util/lazyLoad.js';
 import { api } from '../api/theCatAPI.js';
 import { setItem } from '../util/localStorage.js';
+import Loading from './Loading.js';
 
 export default class PostSection {
     constructor({ $target, recentPostState, showModal }) {
@@ -16,6 +17,12 @@ export default class PostSection {
         this.section.className = 'post-section';
 
         $target.appendChild(this.section);
+
+        const loading = new Loading({
+            $target,
+            className: 'body-spinner'
+        });
+        this.loading = loading;
 
         this.render();
         lazyLoad();
@@ -61,6 +68,7 @@ export default class PostSection {
     }
 
     async searchCatsByBreed(breedId) {
+        this.loading.toggleSpinner();
         const response = await api.getCatsByBreed(breedId, 0);
         if (!response.isError) {
             const newPosts = response.data;
@@ -68,12 +76,14 @@ export default class PostSection {
             this.state.page = 1;
             this.setPosts(newPosts);
             setItem('postState', this.state);
+            this.loading.toggleSpinner();
         } else {
             /* TODO: 에러 페이지 */
         }
     }
 
     async searchCatsMoreScroll(breedId, page) {
+        this.loading.toggleSpinner();
         const response = await api.getCatsByBreed(breedId, page);
         if (!response.isError) {
             const newPosts = response.data;
@@ -81,6 +91,7 @@ export default class PostSection {
             this.appendCardToCardContainer(newPosts);
             this.state.page += 1;
             setItem('postState', this.state);
+            this.loading.toggleSpinner();
         }
     }
 

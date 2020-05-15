@@ -16,6 +16,7 @@ body {
 
 .hidden {
     visibility: hidden;
+    height: 0;
 }
 
 .card-container {
@@ -100,11 +101,9 @@ body {
 .search-breed {
     background: white;
     position: absolute;
-    position: absolute;
     left: 50%;
     top: 62px;
     transform: translateX(-50%);
-    position: absolute;
     list-style: none;
     min-width: 40%;
     border: 1px solid #bababa;
@@ -155,4 +154,24 @@ body {
 
 .search-recent-breed-item:hover {
     background-color: dodgerblue;
+}
+
+.body-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255, 0.4);
+    z-index: 1;
+}
+
+.search-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
 }
