@@ -32,14 +32,11 @@ export default class PostSection {
 
         this.appendCardToCardContainer(this.state.posts, cardContainer);
 
-        cardContainer.addEventListener('click', e => {
-            const path = e.path;
-            const card = path.find(comp => comp.className == 'cat-card');
-            
-            if(card){
+        cardContainer.addEventListener('click', event => {
+            const card = event.path.find(comp => comp.className == 'cat-card');
+            if (card) {
                 const id = card.dataset.id;
                 const catInfo = this.findCatById(id);
-                
                 this.showModal(catInfo);
             }
         });

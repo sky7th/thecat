@@ -54,6 +54,12 @@ export default class SearchingSection {
         $searchBox.addEventListener('focus', () => $breedContainer.classList.remove('hidden'));
         $breedContainer.addEventListener('mouseenter', () => isEnterCusor = true);
         $breedContainer.addEventListener('mouseleave', () => isEnterCusor = false);
+        $recentSearchBreedContainer.addEventListener('click', () => { 
+            const recentBreedItem = event.path.find(comp => comp.className == 'search-recent-breed-item');
+            if (recentBreedItem) {
+                this.searchCatsByBreed(recentBreedItem.dataset.id);
+            }
+        })
 
         $wrapper.appendChild($searchBox);
         this.$section.appendChild($wrapper);
