@@ -1,6 +1,7 @@
 import SearchingSection from './component/SearchingSection.js';
 import PostSection from './component/PostSection.js';
 import DetailModal from './component/DetailModal.js';
+import DarkModeButton from './component/DarkModeButton.js';
 
 import { getItem } from './util/localStorage.js';
 
@@ -28,5 +29,7 @@ export default class App {
         const detailModal = new DetailModal({
             $target
         });
+
+        new DarkModeButton({ $target })
     }
 }

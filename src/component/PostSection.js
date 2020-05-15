@@ -59,7 +59,6 @@ export default class PostSection {
                 data: item
             });
         });
-        lazyLoad();
     }
 
     findCatById(id) {
@@ -92,6 +91,7 @@ export default class PostSection {
             this.state.page += 1;
             setItem('postState', this.state);
             this.loading.toggleSpinner();
+            lazyLoad();
         }
     }
 

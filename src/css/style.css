@@ -1,8 +1,11 @@
 :root {
     --background: white;
+    --text-color: black;
 }
 
 body {
+    background: var(--background);
+    color: var(--text-color);
     transition: background 500ms ease-in-out, color 200ms ease;
 }
 
@@ -12,6 +15,7 @@ body {
 
 .card-image {
     width: 100%;
+    min-height: 150px;
 }
 
 .hidden {
@@ -99,7 +103,7 @@ body {
 }
 
 .search-breed {
-    background: white;
+    background: var(--background);
     position: absolute;
     left: 50%;
     top: 62px;
@@ -174,4 +178,14 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1;
+}
+
+.dark-mode-toggle-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    padding: 0 13px;
 }
