@@ -5,10 +5,10 @@ import { api } from '../api/theCatAPI.js';
 import { setItem } from '../util/localStorage.js';
 
 export default class PostSection {
-    constructor({ $target, recentPosts, showModal }) {
+    constructor({ $target, recentPostState, showModal }) {
         this.showModal = showModal;
-        this.state = {
-            posts: recentPosts || [],
+        this.state = recentPostState || {
+            posts: [],
             page: 1,
             breedId: ''
         }
@@ -19,7 +19,7 @@ export default class PostSection {
 
         this.render();
         lazyLoad();
-        scrollFetch(this.searchCatsMoreScroll, this.state);
+        scrollFetch((breedId, page) => { this.searchCatsMoreScroll(breedId, page) }, this.state);
     }
 
     render() {
@@ -67,7 +67,7 @@ export default class PostSection {
             this.state.breedId = breedId;
             this.state.page = 1;
             this.setPosts(newPosts);
-            setItem('posts', this.state.posts);
+            setItem('postState', this.state);
         } else {
             /* TODO: 에러 페이지 */
         }
@@ -80,7 +80,7 @@ export default class PostSection {
             this.state.posts = [...this.state.posts, ...newPosts];
             this.appendCardToCardContainer(newPosts);
             this.state.page += 1;
-            setItem('posts', this.state.posts);
+            setItem('postState', this.state);
         }
     }
 

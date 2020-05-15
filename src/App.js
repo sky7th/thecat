@@ -6,10 +6,12 @@ import { getItem } from './util/localStorage.js';
 
 export default class App {
     constructor($target) {
-        const recentPosts = getItem('posts');
+        const recentPostState = getItem('postState');
+        const recentBreeds = getItem('recentBreeds');
 
         const searchingSection = new SearchingSection({
             $target,
+            recentBreeds,
             searchCatsByBreed: breedId => {
                 postSection.searchCatsByBreed(breedId);
             }
@@ -17,7 +19,7 @@ export default class App {
 
         const postSection = new PostSection({ 
             $target,
-            recentPosts,
+            recentPostState,
             showModal: data => {
                 detailModal.setState(data);
             }

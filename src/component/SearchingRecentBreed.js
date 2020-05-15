@@ -1,6 +1,9 @@
+import { getItem, setItem } from '../util/localStorage.js';
+
 export default class SearchingRecentBreed {
-    constructor({ $target }) {
-        this.recentSearchBreeds = [];
+    constructor({ $target, recentBreeds }) {
+        this.recentSearchBreeds = recentBreeds || [];
+
         this.$container = document.createElement('ul');
         this.$container.className = 'search-recent-breed-container';
         $target.appendChild(this.$container);
@@ -29,6 +32,7 @@ export default class SearchingRecentBreed {
         }
 
         this.recentSearchBreeds.unshift(breedInfo);
+        setItem('recentBreeds', [...this.recentSearchBreeds])
         this.render();
     }
 }

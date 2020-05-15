@@ -3,8 +3,9 @@ import SearchingRecentBreed from './SearchingRecentBreed.js';
 import { debouncing } from '../util/debouncing.js';
 
 export default class SearchingSection {
-    constructor({ $target, searchCatsByBreed }) {
+    constructor({ $target, recentBreeds, searchCatsByBreed }) {
         this.searchCatsByBreed = searchCatsByBreed;
+        this.recentBreeds = recentBreeds;
         this.$section = document.createElement('section');
         this.$section.className = 'searching-section';
 
@@ -30,7 +31,8 @@ export default class SearchingSection {
         $recentSearchBreedContainer.className = 'search-recent-breed';
 
         const searchingRecentBreed = new SearchingRecentBreed({
-            $target: $recentSearchBreedContainer
+            $target: $recentSearchBreedContainer,
+            recentBreeds: this.recentBreeds
         });
 
         $searchBox.addEventListener('keyup', debouncing().debounce(() => {
