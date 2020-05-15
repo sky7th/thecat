@@ -40,9 +40,9 @@ export default class SearchingSection {
             }
             new SearchingBreed({
                 $target: $breedContainer,
-                searchCatsByBreed: this.searchCatsByBreed,
                 data: $searchBox.value,
-                searchingRecentBreed: searchingRecentBreed
+                searchCatsByBreed: this.searchCatsByBreed,
+                appendRecentBreed: breedInfo => { searchingRecentBreed.appendBreed(breedInfo); }
             });
         }, 500));
         let isEnterCusor = true;

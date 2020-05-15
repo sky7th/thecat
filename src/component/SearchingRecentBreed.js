@@ -31,9 +31,4 @@ export default class SearchingRecentBreed {
         this.recentSearchBreeds.unshift(breedInfo);
         this.render();
     }
-
-    deleteBreed(breedId) {
-        this.recentSearchBreeds = this.recentSearchBreeds.filter(breed => breed.id !== breedId);
-        this.render();
-    }
 }

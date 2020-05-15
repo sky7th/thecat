@@ -3,7 +3,7 @@ export default class Card {
         this.data = data;
         this.card = document.createElement('article');
         this.card.className = 'cat-card';
-        this.card.dataset.id = data.id;
+        this.card.dataset.id = this.data.id;
 
         $target.appendChild(this.card);
 

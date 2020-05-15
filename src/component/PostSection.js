@@ -1,13 +1,14 @@
 import Card from "./Card.js";
 import { scrollFetch } from '../util/scrollFetch.js';
 import { lazyLoad } from '../util/lazyLoad.js';
+import { api } from '../api/theCatAPI.js';
+import { setItem } from '../util/localStorage.js';
 
 export default class PostSection {
-    constructor({ $target, recentPosts, searchCatsMoreScroll, showModal }) {
-        this.searchCatsMoreScroll = searchCatsMoreScroll;
+    constructor({ $target, recentPosts, showModal }) {
         this.showModal = showModal;
         this.state = {
-            data: recentPosts,
+            posts: recentPosts || [],
             page: 1,
             breedId: ''
         }
@@ -21,41 +22,15 @@ export default class PostSection {
         scrollFetch(this.searchCatsMoreScroll, this.state);
     }
 
-    setState(data) {
-        this.state.data = data;
-        this.render();
-        lazyLoad();
-    }
-
-    getData() {
-        return this.state.data;
-    }
-
-    setData(data) {
-        this.state.data = data;
-    }
-
-    plusPage() {
-        this.state.page += 1;
-    }
-
-    resetPage() {
-        this.state.page = 1;
-    }
-
-    setBreedId(breedId) {
-        this.state.breedId = breedId;
-    }
-
     render() {
-        if(!this.state.data) return;
+        if(!this.state.posts) return;
 
         this.section.innerHTML = '';
         
         const cardContainer = document.createElement('div');
         cardContainer.className = 'card-container';
 
-        this.appendCardToCardContainer(this.state.data, cardContainer);
+        this.appendCardToCardContainer(this.state.posts, cardContainer);
 
         cardContainer.addEventListener('click', e => {
             const path = e.path;
@@ -84,7 +59,37 @@ export default class PostSection {
     }
 
     findCatById(id) {
-        const result = this.state.data.find(cat => cat.id == id);
+        const result = this.state.posts.find(cat => cat.id == id);
         return result;
+    }
+
+    async searchCatsByBreed(breedId) {
+        const response = await api.getCatsByBreed(breedId, 0);
+        if (!response.isError) {
+            const newPosts = response.data;
+            this.state.breedId = breedId;
+            this.state.page = 1;
+            this.setPosts(newPosts);
+            setItem('posts', this.state.posts);
+        } else {
+            /* TODO: 에러 페이지 */
+        }
+    }
+
+    async searchCatsMoreScroll(breedId, page) {
+        const response = await api.getCatsByBreed(breedId, page);
+        if (!response.isError) {
+            const newPosts = response.data;
+            this.state.posts = [...this.state.posts, ...newPosts];
+            this.appendCardToCardContainer(newPosts);
+            this.state.page += 1;
+            setItem('posts', this.state.posts);
+        }
+    }
+
+    setPosts(posts) {
+        this.state.posts = posts;
+        this.render();
+        lazyLoad();
     }
 }
