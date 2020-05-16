@@ -41,14 +41,14 @@ export default class PostSection {
         }
 
         this.section.innerHTML = '';
-        
+
         const cardContainer = document.createElement('div');
         cardContainer.className = 'card-container';
 
         this.appendCardToCardContainer(this.state.posts, cardContainer);
 
         cardContainer.addEventListener('click', event => {
-            const card = event.path.find(comp => comp.className == 'cat-card');
+            const card = event.path.find(comp => comp.className === 'cat-card');
             if (card) {
                 const id = card.dataset.id;
                 const catInfo = this.findCatById(id);

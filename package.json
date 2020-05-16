@@ -3,5 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/sky7th/vanila-blog",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "jest": "jest --env=node --colors --coverage test"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1"
+  }
 }
